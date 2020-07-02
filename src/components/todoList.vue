@@ -76,14 +76,7 @@ export default {
       this.newTaskName = "";
     },
     TaskDelete(task_id) {
-      let clone = { ...this.tasks };
-      for (let i = 0; i < this.tasks.length; i++) {
-        const index = this.tasks[i].number;
-        if (index == task_id) {
-          delete clone[i];
-        }
-      }
-      this.tasks = clone;
+      this.tasks = this.tasks.filter(x => x.number !== task_id);
     }
   }
 };
