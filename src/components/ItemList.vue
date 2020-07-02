@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div>ItemList</div>
-    <div v-for="item in items" :key="item.name">
-      <div class="item">
-        <div class="name">名前: {{ item.name }}</div>
-        <div class="price">{{ item.price }} 円</div>
-      </div>
+    <div><h2>ItemList</h2></div>
+    <div class="itemList">
+      <li v-for="item in items" :key="item.name">
+        名前: {{ item.name }} 値段: {{ item.price }} 円
+      </li>
     </div>
     <div>
       <label>
@@ -34,10 +33,7 @@ export default {
   name: "ItemList",
   data() {
     return {
-      items: [
-        { name: "たまご", price: 100 },
-        { name: "りんご", price: 160 }
-      ],
+      items: [],
       newItemName: "",
       newItemPrice: ""
     };

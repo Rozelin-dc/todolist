@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Σ(･ω･ﾉ)ﾉ！</h2>
     <div>{{ countMessage }}</div>
     <button @click="count++">( ﾟ∀ﾟ)ｱﾊﾊ八八ﾉヽﾉヽﾉヽﾉ ＼ / ＼/ ＼</button>
     <button @click="count = 0">＼(゜ロ＼)(／ロ゜)／</button>

@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div>todoList</div>
-    <div v-for="task in tasks" :key="task.name">
-      <div class="todo">
-        <div class="name">タスク: {{ task.name }}</div>
-        <div class="date">{{ task.date }} まで</div>
-      </div>
+    <div><h2>todoList</h2></div>
+    <div class="todoList" id="todo-list">
+      <li v-for="task in tasks" :key="task.name">
+        タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
+        {{ task.status }}
+        <button @click="TaskComplete(task.id)">完了</button>
+        <button @click="TaskDelete(task.id)">削除</button>
+      </li>
     </div>
     <div>
       <label>
@@ -17,11 +19,15 @@
         />
       </label>
       <label>
-        価格
+        期限
+        <input type="date" v-model="newTaskDate" />
+      </label>
+      <label>
+        状態
         <input
-          type="date"
-          v-model="newTaskDate"
-          placeholder="タスクの期限を入力"
+          type="text"
+          v-model="newTaskStatus"
+          placeholder="タスクの状態を入力"
         />
       </label>
       <button @click="addTask">add</button>
@@ -34,20 +40,40 @@ export default {
   name: "todoList",
   data() {
     return {
-      tasks: [
-        { name: "たまご", price: 100 },
-        { name: "りんご", price: 160 }
-      ],
+      tasks: [],
+      newTaskId: 0,
       newTaskName: "",
-      newTaskDate: ""
+      newTaskDate: "",
+      newTaskStatus: ""
     };
   },
   methods: {
     addTask() {
       if (this.newTaskName != "" && this.newTaskDate != "") {
-        this.items.push({ name: this.newTaskName, price: this.newTaskDate });
-        (this.newTaskName = ""), (this.newTaskPrice = "");
+        if (this.newTaskStatus === "") {
+          this.newTaskStatus = "未完";
+        }
+        this.tasks.push({
+          id: this.newTaskId,
+          name: this.newTaskName,
+          date: this.newTaskDate,
+          status: this.newTaskStatus
+        });
+        this.newTaskId++,
+          (this.newTaskName = ""),
+          (this.newTaskDate = ""),
+          (this.newTaskStatus = "");
       }
+    },
+    TaskComplete(task_id) {
+      this.tasks[task_id] = { ...this.tasks[task_id], status: "完了" };
+      this.newTaskName = "0";
+      this.newTaskName = "";
+    },
+    TaskDelete(task_id) {
+      let clone = { ...this.tasks };
+      delete clone[task_id];
+      this.tasks = clone;
     }
   }
 };
