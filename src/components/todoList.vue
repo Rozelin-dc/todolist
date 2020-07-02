@@ -5,8 +5,8 @@
       <li v-for="task in tasks" :key="task.name">
         タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
         {{ task.status }}
-        <button @click="TaskComplete(task.id)">完了</button>
-        <button @click="TaskDelete(task.id)">削除</button>
+        <button @click="TaskComplete(task.number)">完了</button>
+        <button @click="TaskDelete(task.number)">削除</button>
       </li>
     </div>
     <div>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       tasks: [],
-      newTaskId: 0,
+      newTaskNumber: 0,
       newTaskName: "",
       newTaskDate: "",
       newTaskStatus: ""
@@ -54,25 +54,35 @@ export default {
           this.newTaskStatus = "未完";
         }
         this.tasks.push({
-          id: this.newTaskId,
+          number: this.newTaskNumber,
           name: this.newTaskName,
           date: this.newTaskDate,
           status: this.newTaskStatus
         });
-        this.newTaskId++,
+        this.newTaskNumber++,
           (this.newTaskName = ""),
           (this.newTaskDate = ""),
           (this.newTaskStatus = "");
       }
     },
     TaskComplete(task_id) {
-      this.tasks[task_id] = { ...this.tasks[task_id], status: "完了" };
+      for (let i = 0; i < this.tasks.length; i++) {
+        const index = this.tasks[i].number;
+        if (index == task_id) {
+          this.tasks[i] = { ...this.tasks[i], status: "完了" };
+        }
+      }
       this.newTaskName = "0";
       this.newTaskName = "";
     },
     TaskDelete(task_id) {
       let clone = { ...this.tasks };
-      delete clone[task_id];
+      for (let i = 0; i < this.tasks.length; i++) {
+        const index = this.tasks[i].number;
+        if (index == task_id) {
+          delete clone[i];
+        }
+      }
       this.tasks = clone;
     }
   }
