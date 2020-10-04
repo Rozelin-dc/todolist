@@ -57,7 +57,9 @@ export default {
       newTaskNumber: 0,
       newTaskName: "",
       newTaskDate: "",
-      newTaskStatus: ""
+      newTaskStatus: "",
+      noName: false,
+      noDate: false
     };
   },
   methods: {
