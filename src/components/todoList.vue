@@ -16,11 +16,14 @@
           type="text"
           v-model="newTaskName"
           placeholder="タスクの名前を入力"
+          :class="{
+            'has-error': noName
+          }"
         />
       </label>
       <label>
         期限
-        <input type="date" v-model="newTaskDate" />
+        <input type="date" v-model="newTaskDate" :class="{'has-error': noDate}"/>
       </label>
       <label>
         状態
@@ -32,6 +35,8 @@
       </label>
       <button @click="addTask">add</button>
     </div>
+    <div v-show="noName" class="error-message">タスクの名前を入力してください。</div>
+    <div v-show="noDate" class="error-message">タスクの期限を入力してください。</div>
   </div>
 </template>
 
@@ -44,12 +49,26 @@ export default {
       newTaskNumber: 0,
       newTaskName: "",
       newTaskDate: "",
-      newTaskStatus: ""
+      newTaskStatus: "",
+      noName: false,
+      noDate: false
     };
-  },
+  }, 
   methods: {
     addTask() {
+      if (this.newTaskName === "" && this.newTaskDate === "") {
+        this.noName = true;
+        this.noDate = true;
+      } else if (this.newTaskName != "" && this.newTaskDate === "") {
+        this.noName = false;
+        this.noDate = true;
+      } else if (this.newTaskName === "" && this.newTaskDate != "") {
+        this.noName = true;
+        this.noDate = false;
+      }
       if (this.newTaskName != "" && this.newTaskDate != "") {
+        this.noName = false;
+        this.noDate = false;
         if (this.newTaskStatus === "") {
           this.newTaskStatus = "未完";
         }
@@ -79,5 +98,15 @@ export default {
       this.tasks = this.tasks.filter(x => x.number !== task_id);
     }
   }
-};
+}
 </script>
+
+<style>
+.has-error {
+  border: solid 1px rgb(250, 0, 0);
+}
+
+.error-message {
+  color: rgb(250, 0, 0);
+}
+</style>
