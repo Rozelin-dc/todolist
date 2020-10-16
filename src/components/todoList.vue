@@ -1,96 +1,86 @@
 <template>
-  <div>
-    <div><h2>todoList</h2></div>
-    <div class="todoList" id="todo-list">
+  <el-card class="todoList">
+    <h2>todoList</h2>
+    <div id="todo-list">
       <li v-for="task in tasks" :key="task.name">
         タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
         {{ task.status }}
-        <button @click="TaskComplete(task.number)">完了</button>
-        <button @click="TaskDelete(task.number)">削除</button>
+        <el-button
+          type="success"
+          size="small"
+          @click="TaskComplete(task.number)"
+        >
+          完了
+        </el-button>
+        <el-button type="info" size="small" @click="TaskDelete(task.number)">
+          削除
+        </el-button>
       </li>
     </div>
-    <div>
-      <label>
-        タスク
-        <input
+    <el-form :inline="true" ref="newTask" :model="newTask" :rules="inputError">
+      <el-form-item label="タスク" prop="name">
+        <el-input
           type="text"
-          v-model="newTaskName"
+          v-model="newTask.name"
           placeholder="タスクの名前を入力"
-          :class="{
-            'has-error': noName
-          }"
+          name="name"
         />
-      </label>
-      <label>
-        期限
-        <input
-          type="date"
-          v-model="newTaskDate"
-          :class="{ 'has-error': noDate }"
-        />
-      </label>
-      <label>
-        状態
-        <input
+      </el-form-item>
+      <el-form-item label="期限" prop="date">
+        <el-input type="date" v-model="newTask.date" name="date" />
+      </el-form-item>
+      <el-form-item label="状態" prop="status">
+        <el-input
           type="text"
-          v-model="newTaskStatus"
+          v-model="newTask.status"
+          name="status"
           placeholder="タスクの状態を入力"
         />
-      </label>
-      <button @click="addTask">add</button>
-    </div>
-    <div v-show="noName" class="error-message">
-      タスクの名前を入力してください。
-    </div>
-    <div v-show="noDate" class="error-message">
-      タスクの期限を入力してください。
-    </div>
-  </div>
+      </el-form-item>
+      <el-button :disabled="!addOk" @click="addTask" type="primary">
+        add
+      </el-button>
+    </el-form>
+  </el-card>
 </template>
 
-<script>
+<script lang="ts">
+//import { Vue } from 'vue-property-decorator'
+// import { ElForm } from "element-ui/types/form";
+
 export default {
   name: "todoList",
   data() {
     return {
       tasks: [],
       newTaskNumber: 0,
-      newTaskName: "",
-      newTaskDate: "",
-      newTaskStatus: "",
-      noName: false,
-      noDate: false
+      newTask: {
+        name: "",
+        date: "",
+        status: ""
+      },
+      inputError: {
+        name: { required: true, message: "タスクの名前を入力してください。" },
+        date: { required: true, message: "タスクの期限を入力してください。" },
+        status: { type: "text" }
+      }
     };
   },
   methods: {
     addTask() {
-      if (this.newTaskName === "" && this.newTaskDate === "") {
-        this.noName = true;
-        this.noDate = true;
-      } else if (this.newTaskName != "" && this.newTaskDate === "") {
-        this.noName = false;
-        this.noDate = true;
-      } else if (this.newTaskName === "" && this.newTaskDate != "") {
-        this.noName = true;
-        this.noDate = false;
+      if (this.newTask.status === "") {
+        this.newTaskStatus = "未完";
       }
-      if (this.newTaskName != "" && this.newTaskDate != "") {
-        this.noName = false;
-        this.noDate = false;
-        if (this.newTaskStatus === "") {
-          this.newTaskStatus = "未完";
-        }
-        this.tasks.push({
-          number: this.newTaskNumber,
-          name: this.newTaskName,
-          date: this.newTaskDate,
-          status: this.newTaskStatus
-        });
-        this.newTaskNumber++,
-          (this.newTaskName = ""),
-          (this.newTaskDate = ""),
-          (this.newTaskStatus = "");
-      }
+      this.tasks.push({
+        number: this.newTaskNumber,
+        name: this.newTask.name,
+        date: this.newTask.date,
+        status: this.newTask.status
+      });
+      this.newTaskNumber++,
+        (this.newTask.name = ""),
+        (this.newTask.date = ""),
+        (this.newTask.status = "");
     },
     TaskComplete(task_id) {
       for (let i = 0; i < this.tasks.length; i++) {
@@ -99,21 +89,23 @@ export default {
           this.tasks[i] = { ...this.tasks[i], status: "完了" };
         }
       }
-      this.newTaskName = "0";
-      this.newTaskName = "";
+      this.newTask.name = "0";
+      this.newTask.name = "";
     },
     TaskDelete(task_id) {
       this.tasks = this.tasks.filter(x => x.number !== task_id);
+    },
+    addOk: function() {
+      if (this.newTask.name !== "" && this.newTask.date !== "") return true;
+      else return false;
     }
   }
 };
 </script>
 
 <style>
-.has-error {
-  border: solid 1px rgb(250, 0, 0);
-}
-.error-message {
-  color: rgb(250, 0, 0);
+.todoList {
+  width: 80%;
+  margin: 0 auto;
 }
 </style>
