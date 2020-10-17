@@ -1,5 +1,5 @@
 <template>
-  <el-card class="todoList">
+  <el-card class="card">
     <h2>todoList</h2>
     <div id="todo-list">
       <li v-for="task in tasks" :key="task.name">
@@ -44,16 +44,15 @@
   </el-card>
 </template>
 
-<script lang="ts">
-//import { Vue } from 'vue-property-decorator'
-// import { ElForm } from "element-ui/types/form";
-
+<script>
 export default {
   name: "todoList",
   data() {
     return {
       tasks: [],
       newTaskNumber: 0,
+      formName: "newTask",
+      isValid: true,
       newTask: {
         name: "",
         date: "",
@@ -68,8 +67,8 @@ export default {
   },
   methods: {
     addTask() {
-      if (this.newTask.status === "") {
-        this.newTaskStatus = "未完";
+      if (this.newTask.status == "") {
+        this.newTask.status = "未完";
       }
       this.tasks.push({
         number: this.newTaskNumber,
@@ -94,7 +93,9 @@ export default {
     },
     TaskDelete(task_id) {
       this.tasks = this.tasks.filter(x => x.number !== task_id);
-    },
+    }
+  },
+  computed: {
     addOk: function() {
       if (this.newTask.name !== "" && this.newTask.date !== "") return true;
       else return false;
@@ -104,7 +105,7 @@ export default {
 </script>
 
 <style>
-.todoList {
+.card {
   width: 80%;
   margin: 0 auto;
 }
