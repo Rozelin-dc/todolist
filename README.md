@@ -1,4 +1,4 @@
-# todolist
+# SimpleApp
 
 ## Project setup
 ```
