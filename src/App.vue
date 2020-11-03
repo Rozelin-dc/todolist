@@ -3,7 +3,8 @@
     <div id="nav" class="navBar">
       <router-link to="/">Home</router-link> |
       <router-link to="/todo-list">Todo List</router-link> |
-      <router-link to="/counter">Counter</router-link>
+      <router-link to="/counter">Counter</router-link> |
+      <router-link to="/item-list">Item List</router-link>
     </div>
     <router-view />
   </div>
@@ -34,6 +35,7 @@
 .navBar {
   position: relative;
   width: 100%;
+  margin: 0 auto;
   /* background-color: #2d6d35; */
 }
 </style>

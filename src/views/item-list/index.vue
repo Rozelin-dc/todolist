@@ -1,11 +1,15 @@
 <template>
   <div>
     <div><h2>ItemList</h2></div>
-    <div class="itemList">
+    <el-table :data="items" border>
+      <el-table-column prop="name" label="Name" sortable />
+      <el-table-column prop="price" label="Price" sortable />
+    </el-table>
+    <!-- <div class="itemList">
       <li v-for="item in items" :key="item.name">
         名前: {{ item.name }} 値段: {{ item.price }} 円
       </li>
-    </div>
+    </div> -->
     <div>
       <label>
         名前
@@ -33,7 +37,7 @@ export default {
   name: "ItemList",
   data() {
     return {
-      items: [],
+      items: [{ name: "aaa", price: 123 }],
       newItemName: "",
       newItemPrice: ""
     };
@@ -41,7 +45,11 @@ export default {
   methods: {
     addItem() {
       if (this.newItemName != "" && this.newItemPrice != "") {
-        this.items.push({ name: this.newItemName, price: this.newItemPrice });
+        this.items.push({
+          // selected: false,
+          name: this.newItemName,
+          price: this.newItemPrice
+        });
         (this.newItemName = ""), (this.newItemPrice = "");
       }
     }
