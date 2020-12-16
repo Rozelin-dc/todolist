@@ -1,4 +1,3 @@
-@@ -1,35 +0,0 @@
 <template>
   <el-card class="card">
     <h2>Σ(･ω･ﾉ)ﾉ！</h2>
