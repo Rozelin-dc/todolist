@@ -1,0 +1,24 @@
+{
+    "env": {
+        "browser": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "@vue/prettier",
+        "@vue/standard",
+        "@vue/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "ecmaFeatures": {
+            "jsx": false
+        }
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+    }
+}
