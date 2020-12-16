@@ -1,3 +1,4 @@
+@@ -1,35 +0,0 @@
 <template>
   <el-card class="card">
     <h2>Σ(･ω･ﾉ)ﾉ！</h2>
@@ -11,23 +12,22 @@
   </el-card>
 </template>
 
-<script>
-export default {
-  name: "counter",
-  data() {
-    return {
-      count: 0
-    };
-  },
-  computed: {
-    countMessage() {
-      return "ｲｴｰｲヽ(^o^)丿: " + this.count;
-    }
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component({
+    name: 'Counter',
+    components: {}
+})
+export default class extends Vue {
+  count = 0
+  get countMessage() {
+    return 'ｲｴｰｲヽ(^o^)丿: ' + this.count
   }
-};
+}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .card {
   width: 80%;
   margin: 0 auto;
