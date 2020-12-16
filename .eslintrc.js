@@ -1,24 +1,22 @@
-{
+module.exports = {
     "env": {
         "browser": true
     },
     "extends": [
         "eslint:recommended",
+        "plugin:vue/essential",
         "plugin:@typescript-eslint/recommended",
         "@vue/prettier",
-        "@vue/standard",
         "@vue/typescript"
     ],
-    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "parser": "@typescript-eslint/parser",
-        "ecmaFeatures": {
-            "jsx": false
-        }
+        "ecmaVersion": 12,
+        "parser": "@typescript-eslint/parser"
     },
     "plugins": [
+        "vue",
         "@typescript-eslint"
     ],
     "rules": {
     }
-}
+};
