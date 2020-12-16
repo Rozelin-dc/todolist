@@ -33,7 +33,7 @@
 }
 </style>
 
-<style lang="scss" scoped>
+<style scoped>
 .navBar {
   position: relative;
   width: 100%;

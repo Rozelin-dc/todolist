@@ -119,7 +119,7 @@ export default class extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   width: 80%;
   margin: 0 auto;
