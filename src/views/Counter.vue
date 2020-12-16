@@ -20,6 +20,7 @@ import { Vue, Component } from 'vue-property-decorator'
 })
 export default class extends Vue {
   count = 0
+
   get countMessage() {
     return 'ｲｴｰｲヽ(^o^)丿: ' + this.count
   }
