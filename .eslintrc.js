@@ -1,14 +1,37 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true
-  },
-  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
-  parserOptions: {
-    parser: "babel-eslint"
-  },
-  rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
-  }
+    "root": true,
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/recommended",
+        "@vue/prettier",
+        "@vue/standard",
+        "@vue/typescript"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "parser": "@typescript-eslint/parser",
+        "ecmaFeatures": {
+            "jsx": false
+        }
+    },
+    "plugins": [
+        "vue",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+              "singleQuote": true,
+              "semi": false,
+              "tabWidth": 2
+            }
+        ],
+        "space-before-function-paren": [2, {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
+    }
 };

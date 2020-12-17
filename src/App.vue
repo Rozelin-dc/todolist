@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav" class="navBar">
       <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
       <router-link to="/todo-list">Todo List</router-link> |
       <router-link to="/counter">Counter</router-link>
     </div>
@@ -30,7 +31,9 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+</style>
 
+<style scoped>
 .navBar {
   position: relative;
   width: 100%;

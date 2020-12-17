@@ -11,23 +11,23 @@
   </el-card>
 </template>
 
-<script>
-export default {
-  name: "counter",
-  data() {
-    return {
-      count: 0
-    };
-  },
-  computed: {
-    countMessage() {
-      return "ｲｴｰｲヽ(^o^)丿: " + this.count;
-    }
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component({
+  name: 'Counter',
+  components: {}
+})
+export default class extends Vue {
+  count = 0
+
+  get countMessage() {
+    return 'ｲｴｰｲヽ(^o^)丿: ' + this.count
   }
-};
+}
 </script>
 
-<style>
+<style scoped>
 .card {
   width: 80%;
   margin: 0 auto;
