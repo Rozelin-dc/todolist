@@ -31,6 +31,7 @@ module.exports = {
               "semi": false,
               "tabWidth": 2
             }
-        ]
+        ],
+        "space-before-function-paren": [2, {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
     }
 };

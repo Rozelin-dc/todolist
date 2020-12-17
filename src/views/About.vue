@@ -17,5 +17,5 @@ import { Vue, Component } from 'vue-property-decorator'
   name: 'About',
   components: {}
 })
-export default class extends Vue{}
+export default class extends Vue {}
 </script>

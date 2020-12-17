@@ -1,6 +1,6 @@
 <template>
   <el-card class="card">
-    <h2>todo list</h2>
+    <h2>Todo List</h2>
     <div id="todo-list">
       <li v-for="task in tasks" :key="task.number">
         タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
@@ -17,27 +17,27 @@
         </el-button>
       </li>
     </div>
-    <el-form :inline="true" ref="newTask" :model="newTask" :rules="inputError">
+    <el-form ref="newTask" :inline="true" :model="newTask" :rules="inputError">
       <el-form-item label="タスク" prop="name">
         <el-input
-          type="text"
           v-model="newTask.name"
+          type="text"
           placeholder="タスクの名前を入力"
           name="name"
         />
       </el-form-item>
       <el-form-item label="期限" prop="date">
-        <el-input type="date" v-model="newTask.date" name="date" />
+        <el-input v-model="newTask.date" type="date" name="date" />
       </el-form-item>
       <el-form-item label="状態" prop="status">
         <el-input
-          type="text"
           v-model="newTask.status"
+          type="text"
           name="status"
           placeholder="タスクの状態を入力"
         />
       </el-form-item>
-      <el-button :disabled="!addOk" @click="addTask" type="primary">
+      <el-button :disabled="!addOk" type="primary" @click="addTask">
         add
       </el-button>
     </el-form>
@@ -49,9 +49,9 @@ import { Vue, Component } from 'vue-property-decorator'
 import { Form as ElForm } from 'element-ui'
 
 interface Task {
-  number: number,
-  name: string,
-  date: string,
+  number: number
+  name: string
+  date: string
   status: string
 }
 
@@ -93,9 +93,9 @@ export default class extends Vue {
     }
     this.tasks.push({
       ...this.newTask,
-      number: this.newTaskNumber,
+      number: this.newTaskNumber
     })
-    this.newTaskNumber ++
+    this.newTaskNumber++
     this.newTask.name = ''
     this.newTask.date = ''
     this.newTask.status = ''
