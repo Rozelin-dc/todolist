@@ -5,6 +5,16 @@
       <li v-for="link in links" :key="link.url">
         URL:
         <el-link :href="link.url" />
+        <el-tooltip effect="light" placement="top" :content="クリックでコピー">
+          <el-button
+            v-clipboard="link.url"
+            v-clipboard:success="copySuccess"
+            v-clipboard:error="copyError"
+            type="primary"
+            icon="el-icon-edit"
+            circle
+          />
+        </el-tooltip>
         詳細: {{ link.detail }}
         <el-button type="info" size="small" @click="linkDelete(link.url)">
           削除
@@ -87,6 +97,22 @@ export default class extends Vue {
   linkDelete(deleteUrl: string) {
     this.links = this.links.filter(link => link.url !== deleteUrl)
     localStorage.setItem('RozelinAppLinks', JSON.stringify(this.links))
+  }
+
+  copySuccess() {
+    this.$message({
+      message: 'URLをコピーしました',
+      type: 'success',
+      duration: 5 * 1000
+    })
+  }
+
+  copyError() {
+    this.$message({
+      message: 'URLのコピーに失敗しました',
+      type: 'error',
+      duration: 5 * 1000
+    })
   }
 }
 </script>
