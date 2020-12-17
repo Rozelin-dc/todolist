@@ -8,11 +8,11 @@
         <el-button
           type="success"
           size="small"
-          @click="TaskComplete(task.number)"
+          @click="taskComplete(task.number)"
         >
           完了
         </el-button>
-        <el-button type="info" size="small" @click="TaskDelete(task.number)">
+        <el-button type="info" size="small" @click="taskDelete(task.number)">
           削除
         </el-button>
       </li>
@@ -112,7 +112,7 @@ export default class extends Vue {
     this.newTask.status = ''
   }
 
-  TaskComplete(taskId: number) {
+  taskComplete(taskId: number) {
     for (let i = 0; i < this.tasks.length; i++) {
       const index = this.tasks[i].number
       if (index === taskId) {
@@ -125,7 +125,7 @@ export default class extends Vue {
     this.newTask.name = ''
   }
 
-  TaskDelete(taskId: number) {
+  taskDelete(taskId: number) {
     this.tasks = this.tasks.filter(task => task.number !== taskId)
     localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
   }

@@ -33,5 +33,6 @@ module.exports = {
             }
         ],
         "space-before-function-paren": [2, {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
+        "no-unused-vars": "off"
     }
 };
