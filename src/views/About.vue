@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>This is an about page.</h1>
     Vue.jsとTypeScriptで作ったWeb上で動く簡単なアプリです
     <br />
     view on

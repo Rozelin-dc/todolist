@@ -1,6 +1,6 @@
 <template>
   <el-card class="card">
-    <h2>todoList</h2>
+    <h2>todo list</h2>
     <div id="todo-list">
       <li v-for="task in tasks" :key="task.number">
         タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
