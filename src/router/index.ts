@@ -29,7 +29,7 @@ const routes: Array<RouteConfig> = [
     name: 'Counetr',
     component: () => import('@/views/Counter.vue')
   }
-];
+]
 
 const router = new VueRouter({
   routes
