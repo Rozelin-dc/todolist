@@ -3,19 +3,26 @@
     <h2>Save Links</h2>
     <div>
       <li v-for="link in links" :key="link.url">
-        URL:
-        <el-link :href="link.url" />
-        <el-tooltip effect="light" placement="top" :content="クリックでコピー">
+        <el-tooltip effect="light" placement="top" :content="link.url">
+          <el-link :href="link.url" style="margin-right: 5px;">
+            {{ link.detail }}
+          </el-link>
+        </el-tooltip>
+        <el-tooltip
+          effect="light"
+          placement="top"
+          content="クリックでリンクアドレスコピー"
+        >
           <el-button
             v-clipboard="link.url"
             v-clipboard:success="copySuccess"
             v-clipboard:error="copyError"
             type="primary"
             icon="el-icon-edit"
+            size="small"
             circle
           />
         </el-tooltip>
-        詳細: {{ link.detail }}
         <el-button type="info" size="small" @click="linkDelete(link.url)">
           削除
         </el-button>
@@ -88,6 +95,7 @@ export default class extends Vue {
   }
 
   addLink() {
+    if (this.newLink.detail === '') this.newLink.detail = this.newLink.url
     this.links.push({ ...this.newLink })
     localStorage.setItem('RozelinAppLinks', JSON.stringify(this.links))
     this.newLink.url = ''
