@@ -28,6 +28,7 @@
       </el-form-item>
       <el-form-item label="期限" prop="date">
         <el-input v-model="newTask.date" type="date" name="date" />
+        <!-- <el-date-picker v-model="newTaskDate" name="date" /> -->
       </el-form-item>
       <el-form-item label="状態" prop="status">
         <el-input
@@ -61,9 +62,13 @@ interface Task {
 })
 export default class extends Vue {
   inputError = {
-    name: { required: true, message: 'タスクの名前を入力してください。' },
-    date: { required: true, message: 'タスクの期限を入力してください。' },
-    status: { type: 'text' }
+    name: [{ required: true, message: 'タスクの名前を入力してください。' }],
+    date: [
+      {
+        required: true,
+        message: 'タスクの期限を入力してください。'
+      }
+    ]
   }
 
   newTask = {
@@ -87,6 +92,11 @@ export default class extends Vue {
     return this.isValid
   }
 
+  mounted() {
+    const localTask = localStorage.getItem('RozelinAppTasks')
+    if (localTask) this.tasks = JSON.parse(localTask)
+  }
+
   addTask() {
     if (this.newTask.status === '') {
       this.newTask.status = '未完'
@@ -95,6 +105,7 @@ export default class extends Vue {
       ...this.newTask,
       number: this.newTaskNumber
     })
+    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
     this.newTaskNumber++
     this.newTask.name = ''
     this.newTask.date = ''
@@ -109,12 +120,14 @@ export default class extends Vue {
         break
       }
     }
+    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
     this.newTask.name = '0'
     this.newTask.name = ''
   }
 
   TaskDelete(taskId: number) {
     this.tasks = this.tasks.filter(task => task.number !== taskId)
+    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
   }
 }
 </script>
