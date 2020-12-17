@@ -2,7 +2,7 @@
   <el-card class="links">
     <h2>Save Links</h2>
     <div>
-      <li v-for="link in links" :key="link.url">
+      <li v-for="link in links" :key="link.url" style="margin-bottom: 5px;">
         <el-tooltip effect="light" placement="top" :content="link.url">
           <el-link :href="link.url" style="margin-right: 5px;">
             {{ link.detail }}
