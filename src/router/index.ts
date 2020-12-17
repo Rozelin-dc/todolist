@@ -28,6 +28,11 @@ const routes: Array<RouteConfig> = [
     path: '/counter',
     name: 'Counetr',
     component: () => import('@/views/Counter.vue')
+  },
+  {
+    path: '/save-links',
+    name: 'SaveLinks',
+    component: () => import('@/views/SaveLinks.vue')
   }
 ]
 
