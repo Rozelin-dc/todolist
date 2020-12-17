@@ -1,22 +1,68 @@
 <template>
   <el-card class="card">
     <h2>Todo List</h2>
-    <div id="todo-list">
-      <li v-for="task in tasks" :key="task.number">
-        タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
-        {{ task.status }}
-        <el-button
-          type="success"
-          size="small"
-          @click="taskComplete(task.number)"
-        >
-          完了
-        </el-button>
-        <el-button type="info" size="small" @click="taskDelete(task.number)">
-          削除
-        </el-button>
-      </li>
+    <!-- <li v-for="task in tasks" :key="task.number">
+      タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
+      {{ task.status }}
+      <el-button
+        type="success"
+        size="small"
+        @click="taskComplete(task.number)"
+      >
+        完了
+      </el-button>
+      <el-button type="info" size="small" @click="taskDelete(task.number)">
+        削除
+      </el-button>
+    </li> -->
+    <el-table :data="tasks" border style="width: 100%">
+      <el-table-column align="center">
+        <!-- slot-scope="~~" がないと、checkbox の表示がリアルタイムで更新されない -->
+        <el-checkbox
+          v-if="selected && scope"
+          slot="header"
+          v-model="isSelectedAll"
+          slot-scope="scope"
+          :indeterminate="isIndeterminate"
+          :disabled="tasks.length === 0"
+        />
+        <el-checkbox
+          v-if="selected"
+          v-model="selected[scope.row.number]"
+          slot-scope="scope"
+        />
+      </el-table-column>
+      <el-table-column prop="name" label="タスク" />
+      <el-table-column prop="date" label="期限" />
+      <el-table-column prop="status" label="状態" />
+      <el-table-column label="完了/削除">
+        <template slot-scope="scope">
+          <el-button
+            type="success"
+            size="small"
+            @click="taskComplete(scope.row.number)"
+          >
+            完了
+          </el-button>
+          <el-button
+            type="info"
+            size="small"
+            @click="taskDelete(scope.row.number)"
+          >
+            削除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="button-wrapper">
+      <el-button type="success" size="small" @click="taskCompleteBulk">
+        まとめて完了
+      </el-button>
+      <el-button type="info" size="small" @click="taskDeleteBulk">
+        まとめて削除
+      </el-button>
     </div>
+    <el-divider />
     <el-form ref="newTask" :inline="true" :model="newTask" :rules="inputError">
       <el-form-item label="タスク" prop="name">
         <el-input
@@ -46,7 +92,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import { Form as ElForm } from 'element-ui'
 
 interface Task {
@@ -82,6 +128,9 @@ export default class extends Vue {
   formName = 'newTask'
   isValid = true
 
+  /** タスクの番号をキー、選択されているかを値に持つ */
+  selected: Record<number, boolean> | null = null
+
   get addOk() {
     if (this.newTask.date === '') return false
 
@@ -90,6 +139,30 @@ export default class extends Vue {
       this.isValid = isValid
     })
     return this.isValid
+  }
+
+  /** 全て 選択/未選択 のとき false でそれ以外 true */
+  get isIndeterminate() {
+    if (this.selected === null) return false
+    return !(
+      this.tasks.every(task => this.selected![task.number]) ||
+      this.tasks.every(task => !this.selected![task.number])
+    )
+  }
+
+  get isSelectedAll() {
+    if (this.selected === null) return false
+    if (this.tasks.length === 0) return false
+    return this.tasks.every(task => this.selected![task.number])
+  }
+
+  set isSelectedAll(e: boolean) {
+    if (this.selected === null) return
+    this.tasks
+      .filter(task => this.selected![task.number] !== e)
+      .forEach(task => {
+        this.selected![task.number] = e
+      })
   }
 
   mounted() {
@@ -129,6 +202,25 @@ export default class extends Vue {
     this.tasks = this.tasks.filter(task => task.number !== taskId)
     localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
   }
+
+  taskCompleteBulk() {
+    this.tasks.forEach(task => {
+      if (this.selected![task.number]) task.status = '完了'
+    })
+    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
+  }
+
+  taskDeleteBulk() {
+    this.tasks = this.tasks.filter(task => !this.selected![task.number])
+    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
+  }
+
+  @Watch('tasks')
+  setSelected() {
+    this.selected = Object.fromEntries(
+      this.tasks.map(task => [task.number, false])
+    )
+  }
 }
 </script>
 
@@ -136,5 +228,12 @@ export default class extends Vue {
 .card {
   width: 80%;
   margin: 0 auto;
+}
+
+.button-wrapper {
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
