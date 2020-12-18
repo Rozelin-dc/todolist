@@ -11,7 +11,7 @@
         <el-tooltip
           effect="light"
           placement="top"
-          content="クリックでリンクアドレスコピー"
+          content="クリックでリンクアドレスをコピー"
         >
           <el-button
             v-clipboard="link.url"

@@ -15,9 +15,14 @@
         削除
       </el-button>
     </li> -->
-    <el-table :data="tasks" border style="width: 100%">
-      <el-table-column align="center">
-        <!-- slot-scope="~~" がないと、checkbox の表示がリアルタイムで更新されない -->
+    <el-table
+      ref="tasksTable"
+      :data="tasks"
+      border
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
+      <!-- <el-table-column align="center">
         <el-checkbox
           v-if="selected && scope"
           slot="header"
@@ -31,7 +36,8 @@
           v-model="selected[scope.row.number]"
           slot-scope="scope"
         />
-      </el-table-column>
+      </el-table-column> -->
+      <el-table-column type="selection" />
       <el-table-column prop="name" label="タスク" />
       <el-table-column prop="date" label="期限" />
       <el-table-column prop="status" label="状態" />
@@ -108,13 +114,7 @@ interface Task {
 })
 export default class extends Vue {
   inputError = {
-    name: [{ required: true, message: 'タスクの名前を入力してください。' }],
-    date: [
-      {
-        required: true,
-        message: 'タスクの期限を入力してください。'
-      }
-    ]
+    name: [{ required: true, message: 'タスクの名前を入力してください。' }]
   }
 
   newTask = {
@@ -124,6 +124,7 @@ export default class extends Vue {
   }
 
   tasks: Task[] = []
+  multipleSelection: Task[] = []
   newTaskNumber = 0
   formName = 'newTask'
   isValid = true
@@ -171,6 +172,9 @@ export default class extends Vue {
   }
 
   addTask() {
+    if (this.newTask.date === '') {
+      this.newTask.date = 'なし'
+    }
     if (this.newTask.status === '') {
       this.newTask.status = '未完'
     }
@@ -205,14 +209,27 @@ export default class extends Vue {
 
   taskCompleteBulk() {
     this.tasks.forEach(task => {
-      if (this.selected![task.number]) task.status = '完了'
+      if (
+        this.multipleSelection.some(selected => selected.number === task.number)
+      ) {
+        task.status = '完了'
+      }
     })
     localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
   }
 
   taskDeleteBulk() {
-    this.tasks = this.tasks.filter(task => !this.selected![task.number])
+    this.tasks = this.tasks.filter(
+      task =>
+        !this.multipleSelection.some(
+          selected => selected.number === task.number
+        )
+    )
     localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
+  }
+
+  handleSelectionChange(val: Task[]) {
+    this.multipleSelection = val
   }
 
   @Watch('tasks')
