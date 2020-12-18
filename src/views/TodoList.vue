@@ -1,22 +1,46 @@
 <template>
   <el-card class="card">
     <h2>Todo List</h2>
-    <div id="todo-list">
-      <li v-for="task in tasks" :key="task.number">
-        タスク: {{ task.name }} 期限: {{ task.date }} まで 状態:
-        {{ task.status }}
-        <el-button
-          type="success"
-          size="small"
-          @click="taskComplete(task.number)"
-        >
-          完了
-        </el-button>
-        <el-button type="info" size="small" @click="taskDelete(task.number)">
-          削除
-        </el-button>
-      </li>
+    <el-table
+      ref="tasksTable"
+      :key="key"
+      :data="tasks"
+      border
+      style="width: 100%;"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" />
+      <el-table-column prop="name" label="タスク" />
+      <el-table-column prop="date" label="期限" />
+      <el-table-column prop="status" label="状態" />
+      <el-table-column label="完了/削除">
+        <template slot-scope="scope">
+          <el-button
+            type="success"
+            size="small"
+            @click="taskComplete(scope.row.number)"
+          >
+            完了
+          </el-button>
+          <el-button
+            type="info"
+            size="small"
+            @click="taskDelete(scope.row.number)"
+          >
+            削除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="button-wrapper">
+      <el-button type="success" @click="taskCompleteBulk">
+        まとめて完了
+      </el-button>
+      <el-button type="info" @click="taskDeleteBulk">
+        まとめて削除
+      </el-button>
     </div>
+    <el-divider />
     <el-form ref="newTask" :inline="true" :model="newTask" :rules="inputError">
       <el-form-item label="タスク" prop="name">
         <el-input
@@ -46,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import { Form as ElForm } from 'element-ui'
 
 interface Task {
@@ -62,13 +86,7 @@ interface Task {
 })
 export default class extends Vue {
   inputError = {
-    name: [{ required: true, message: 'タスクの名前を入力してください。' }],
-    date: [
-      {
-        required: true,
-        message: 'タスクの期限を入力してください。'
-      }
-    ]
+    name: [{ required: true, message: 'タスクの名前を入力してください。' }]
   }
 
   newTask = {
@@ -78,12 +96,14 @@ export default class extends Vue {
   }
 
   tasks: Task[] = []
+  multipleSelection: Task[] = []
   newTaskNumber = 0
   formName = 'newTask'
   isValid = true
+  key: 'a' | 'b' = 'a'
 
   get addOk() {
-    if (this.newTask.date === '') return false
+    if (this.newTask.name === '') return false
 
     const $form = this.$refs[this.formName] as ElForm
     $form.validate(isValid => {
@@ -94,10 +114,16 @@ export default class extends Vue {
 
   mounted() {
     const localTask = localStorage.getItem('RozelinAppTasks')
-    if (localTask) this.tasks = JSON.parse(localTask)
+    if (localTask) {
+      this.tasks = JSON.parse(localTask)
+      this.newTaskNumber = this.tasks[this.tasks.length - 1].number + 2
+    }
   }
 
   addTask() {
+    if (this.newTask.date === '') {
+      this.newTask.date = 'なし'
+    }
     if (this.newTask.status === '') {
       this.newTask.status = '未完'
     }
@@ -105,8 +131,7 @@ export default class extends Vue {
       ...this.newTask,
       number: this.newTaskNumber
     })
-    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
-    this.newTaskNumber++
+    this.newTaskNumber = this.newTaskNumber + 1
     this.newTask.name = ''
     this.newTask.date = ''
     this.newTask.status = ''
@@ -114,19 +139,46 @@ export default class extends Vue {
 
   taskComplete(taskId: number) {
     for (let i = 0; i < this.tasks.length; i++) {
-      const index = this.tasks[i].number
-      if (index === taskId) {
-        this.tasks[i] = { ...this.tasks[i], status: '完了' }
+      const index = this.tasks[i]
+      if (index.number === taskId) {
+        this.tasks[i] = { ...index, status: '完了' }
         break
       }
     }
-    localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
-    this.newTask.name = '0'
-    this.newTask.name = ''
+    this.refleshTable()
   }
 
   taskDelete(taskId: number) {
     this.tasks = this.tasks.filter(task => task.number !== taskId)
+  }
+
+  taskCompleteBulk() {
+    this.tasks.forEach(task => {
+      if (
+        this.multipleSelection.some(selected => selected.number === task.number)
+      ) {
+        task.status = '完了'
+      }
+    })
+  }
+
+  taskDeleteBulk() {
+    this.tasks = this.tasks.filter(
+      task =>
+        !this.multipleSelection.some(
+          selected => selected.number === task.number
+        )
+    )
+  }
+
+  handleSelectionChange(val: Task[]) {
+    this.multipleSelection = val
+  }
+
+  @Watch('tasks')
+  refleshTable() {
+    if (this.key === 'a') this.key = 'b'
+    else this.key = 'a'
     localStorage.setItem('RozelinAppTasks', JSON.stringify(this.tasks))
   }
 }
@@ -136,5 +188,12 @@ export default class extends Vue {
 .card {
   width: 80%;
   margin: 0 auto;
+}
+
+.button-wrapper {
+  width: 265px;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
