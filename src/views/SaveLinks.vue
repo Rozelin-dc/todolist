@@ -23,7 +23,7 @@
             circle
           />
         </el-tooltip>
-        <el-button type="info" size="small" @click="linkDelete(link.url)">
+        <el-button type="info" size="small" @click="deleteLink(link)">
           削除
         </el-button>
       </li>
@@ -102,8 +102,20 @@ export default class extends Vue {
     this.newLink.detail = ''
   }
 
-  linkDelete(deleteUrl: string) {
-    this.links = this.links.filter(link => link.url !== deleteUrl)
+  async deleteLink(deleteLink: Link) {
+    try {
+      await this.$confirm(
+        '次のリンクを削除します。よろしいですか？\nURL: ' +
+          deleteLink.url +
+          '\n詳細: ' +
+          deleteLink.detail,
+        { customClass: 'delete-link-confirm' }
+      )
+    } catch {
+      return
+    }
+
+    this.links = this.links.filter(link => link.url !== deleteLink.url)
     localStorage.setItem('RozelinAppLinks', JSON.stringify(this.links))
   }
 
@@ -124,6 +136,12 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style>
+.delete-link-confirm {
+  white-space: pre-line;
+}
+</style>
 
 <style scoped>
 .links {
