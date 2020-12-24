@@ -9,7 +9,7 @@
       style="width: 100%;"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" />
+      <el-table-column type="selection" align="center" />
       <el-table-column prop="name" label="タスク" />
       <el-table-column prop="date" label="期限" />
       <el-table-column prop="status" label="状態" />
@@ -160,6 +160,7 @@ export default class extends Vue {
         task.status = '完了'
       }
     })
+    this.refleshTable()
   }
 
   taskDeleteBulk() {
