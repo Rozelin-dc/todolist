@@ -160,6 +160,7 @@ export default class extends Vue {
         task.status = '完了'
       }
     })
+    this.refleshTable()
   }
 
   taskDeleteBulk() {
