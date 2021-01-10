@@ -53,8 +53,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import { Form as ElForm } from 'element-ui'
+import { Vue, Component } from 'vue-class-component'
+import { Form as ElForm } from 'element-plus'
 
 interface Link {
   url: string

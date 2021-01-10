@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-class-component'
 import { Form as ElForm } from 'element-ui'
 
 interface Task {
@@ -176,7 +176,7 @@ export default class extends Vue {
     this.multipleSelection = val
   }
 
-  @Watch('tasks')
+  @Watch('tasks', { deep: true })
   refleshTable() {
     if (this.key === 'a') this.key = 'b'
     else this.key = 'a'
