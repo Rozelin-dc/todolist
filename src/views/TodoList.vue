@@ -14,7 +14,7 @@
       <el-table-column prop="date" label="期限" />
       <el-table-column prop="status" label="状態" />
       <el-table-column label="完了/削除">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             type="success"
             size="small"
