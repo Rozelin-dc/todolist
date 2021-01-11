@@ -71,7 +71,7 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-class-component'
-import { Form as ElForm } from 'element-ui'
+import { Form as ElForm } from 'element-plus'
 
 interface Task {
   number: number
@@ -81,8 +81,7 @@ interface Task {
 }
 
 @Component({
-  name: 'TodoList',
-  components: {}
+  name: 'TodoList'
 })
 export default class extends Vue {
   inputError = {

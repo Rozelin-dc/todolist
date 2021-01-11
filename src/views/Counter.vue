@@ -15,8 +15,7 @@
 import { Vue, Component } from 'vue-class-component'
 
 @Component({
-  name: 'Counter',
-  components: {}
+  name: 'Counter'
 })
 export default class extends Vue {
   count = 0

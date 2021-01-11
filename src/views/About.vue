@@ -14,8 +14,7 @@
 import { Component, Vue } from 'vue-class-component'
 
 @Component({
-  name: 'About',
-  components: {}
+  name: 'About'
 })
 export default class extends Vue {}
 </script>

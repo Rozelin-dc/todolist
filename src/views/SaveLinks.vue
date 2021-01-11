@@ -62,8 +62,7 @@ interface Link {
 }
 
 @Component({
-  name: 'SaveLinks',
-  components: {}
+  name: 'SaveLinks'
 })
 export default class extends Vue {
   newLink: Link = {
