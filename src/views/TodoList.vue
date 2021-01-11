@@ -71,7 +71,6 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-class-component'
-import { Form as ElForm } from 'element-plus'
 
 interface Task {
   number: number
@@ -104,8 +103,7 @@ export default class extends Vue {
   get addOk() {
     if (this.newTask.name === '') return false
 
-    const $form = this.$refs[this.formName] as ElForm
-    $form.validate(isValid => {
+    this.$refs[this.formName].validate(isValid => {
       this.isValid = isValid
     })
     return this.isValid
