@@ -54,7 +54,6 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-class-component'
-import { Form as ElForm } from 'element-plus'
 
 interface Link {
   url: string
@@ -81,8 +80,7 @@ export default class extends Vue {
   get addOk() {
     if (this.newLink.url === '') return false
 
-    const $form = this.$refs[this.formName] as ElForm
-    $form.validate(isValid => {
+    this.$refs[this.formName].validate(isValid => {
       this.isValid = isValid
     })
     return this.isValid
