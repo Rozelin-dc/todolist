@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementPuls from 'element-plus'
-import 'element-puls/lib/theme-chalk/index.css'
+import 'element-plus/lib/theme-chalk/index.css'
 import VueClipboard from 'vue-clipboard2'
 
 const app = createApp(App)
