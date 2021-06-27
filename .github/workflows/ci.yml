@@ -6,23 +6,6 @@ on:
       - master
 
 jobs:
-  packages:
-    timeout-minutes: 5
-    name: Packages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        id: cache
-        with:
-          path: ./node_modules
-          key: node_modules-${{ hashFiles('**/package-lock.json') }}
-      - name: npm ci
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
   build:
     timeout-minutes: 5
     name: Build
