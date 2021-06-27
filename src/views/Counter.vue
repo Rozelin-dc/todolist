@@ -14,7 +14,7 @@ import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
   name: 'Counter',
-  components: {}
+  components: {},
 })
 export default class extends Vue {
   count = 0

@@ -1,20 +1,19 @@
 module.exports = {
   env: {
-    node: true
+    node: true,
   },
   extends: [
     'eslint:recommended',
     'plugin:vue/recommended',
     '@vue/prettier',
-    '@vue/standard',
-    '@vue/typescript'
+    '@vue/typescript',
   ],
   parserOptions: {
     ecmaVersion: 12,
     parser: '@typescript-eslint/parser',
     ecmaFeatures: {
-      jsx: false
-    }
+      jsx: false,
+    },
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
@@ -23,13 +22,13 @@ module.exports = {
       {
         singleQuote: true,
         semi: false,
-        tabWidth: 2
-      }
+        tabWidth: 2,
+      },
     ],
     'space-before-function-paren': [
       2,
-      { anonymous: 'never', named: 'never', asyncArrow: 'always' }
+      { anonymous: 'never', named: 'never', asyncArrow: 'always' },
     ],
-    'no-unused-vars': 'off'
-  }
+    'no-unused-vars': 'off',
+  },
 }

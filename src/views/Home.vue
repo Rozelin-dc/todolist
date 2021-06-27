@@ -13,8 +13,8 @@ import { Vue, Component } from 'vue-property-decorator'
 @Component({
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
 export default class extends Vue {}
 </script>

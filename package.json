@@ -26,7 +26,6 @@
     "@vue/cli-plugin-typescript": "~4.5.13",
     "@vue/cli-service": "~4.5.13",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "@vue/eslint-config-standard": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "eslint": "^7.29.0",
     "eslint-plugin-import": "^2.23.4",
@@ -49,7 +48,6 @@
       "eslint:recommended",
       "@vue/typescript",
       "@vue/prettier",
-      "@vue/standard",
       "@vue/prettier/@typescript-eslint"
     ],
     "parserOptions": {
