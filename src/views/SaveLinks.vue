@@ -2,9 +2,9 @@
   <el-card class="links">
     <h2>Save Links</h2>
     <div>
-      <li v-for="link in links" :key="link.url" style="margin-bottom: 5px;">
+      <li v-for="link in links" :key="link.url" style="margin-bottom: 5px">
         <el-tooltip effect="light" placement="top" :content="link.url">
-          <el-link :href="link.url" style="margin-right: 5px;">
+          <el-link :href="link.url" style="margin-right: 5px">
             {{ link.detail }}
           </el-link>
         </el-tooltip>
@@ -80,7 +80,7 @@ export default class extends Vue {
   get addOk() {
     if (this.newLink.url === '') return false
 
-    this.$refs[this.formName].validate(isValid => {
+    this.$refs[this.formName].validate((isValid) => {
       this.isValid = isValid
     })
     return this.isValid
@@ -112,7 +112,7 @@ export default class extends Vue {
       return
     }
 
-    this.links = this.links.filter(link => link.url !== deleteLink.url)
+    this.links = this.links.filter((link) => link.url !== deleteLink.url)
     localStorage.setItem('RozelinAppLinks', JSON.stringify(this.links))
   }
 

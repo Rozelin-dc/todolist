@@ -5,9 +5,7 @@
     <el-button type="success" @click="count++">
       ( ﾟ∀ﾟ)ｱﾊﾊ八八ﾉヽﾉヽﾉヽﾉ ＼ / ＼/ ＼
     </el-button>
-    <el-button type="info" @click="count = 0">
-      ＼(゜ロ＼)(／ロ゜)／
-    </el-button>
+    <el-button type="info" @click="count = 0"> ＼(゜ロ＼)(／ロ゜)／ </el-button>
   </el-card>
 </template>
 
