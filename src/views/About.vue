@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-class-component'
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
   name: 'About'
