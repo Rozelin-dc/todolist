@@ -6,7 +6,7 @@
       :key="key"
       :data="tasks"
       border
-      style="width: 100%;"
+      style="width: 100%"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" align="center" />
@@ -36,9 +36,7 @@
       <el-button type="success" @click="taskCompleteBulk">
         まとめて完了
       </el-button>
-      <el-button type="info" @click="taskDeleteBulk">
-        まとめて削除
-      </el-button>
+      <el-button type="info" @click="taskDeleteBulk"> まとめて削除 </el-button>
     </div>
     <el-divider />
     <el-form ref="newTask" :inline="true" :model="newTask" :rules="inputError">
@@ -106,7 +104,7 @@ export default class extends Vue {
     if (this.newTask.name === '') return false
 
     const $form = this.$refs[this.formName] as ElForm
-    $form.validate(isValid => {
+    $form.validate((isValid) => {
       this.isValid = isValid
     })
     return this.isValid
@@ -149,13 +147,15 @@ export default class extends Vue {
   }
 
   taskDelete(taskId: number) {
-    this.tasks = this.tasks.filter(task => task.number !== taskId)
+    this.tasks = this.tasks.filter((task) => task.number !== taskId)
   }
 
   taskCompleteBulk() {
-    this.tasks.forEach(task => {
+    this.tasks.forEach((task) => {
       if (
-        this.multipleSelection.some(selected => selected.number === task.number)
+        this.multipleSelection.some(
+          (selected) => selected.number === task.number
+        )
       ) {
         task.status = '完了'
       }
@@ -165,9 +165,9 @@ export default class extends Vue {
 
   taskDeleteBulk() {
     this.tasks = this.tasks.filter(
-      task =>
+      (task) =>
         !this.multipleSelection.some(
-          selected => selected.number === task.number
+          (selected) => selected.number === task.number
         )
     )
   }
