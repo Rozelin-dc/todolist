@@ -1,4 +1,4 @@
 module.exports = {
   publicPath: '/SimpleApp/',
-  outputDir: 'docs',
+  outputDir: 'dist',
 }
