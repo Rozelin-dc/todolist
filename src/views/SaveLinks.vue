@@ -61,16 +61,16 @@ interface Link {
 }
 
 @Component({
-  name: 'SaveLinks'
+  name: 'SaveLinks',
 })
 export default class extends Vue {
   newLink: Link = {
     url: '',
-    detail: ''
+    detail: '',
   }
 
   inputError = {
-    url: [{ required: true, message: 'リンク先のURLを入力してください' }]
+    url: [{ required: true, message: 'リンク先のURLを入力してください' }],
   }
 
   links: Link[] = []
@@ -120,7 +120,7 @@ export default class extends Vue {
     this.$message({
       message: 'URLをコピーしました',
       type: 'success',
-      duration: 5 * 1000
+      duration: 5 * 1000,
     })
   }
 
@@ -128,7 +128,7 @@ export default class extends Vue {
     this.$message({
       message: 'URLのコピーに失敗しました',
       type: 'error',
-      duration: 5 * 1000
+      duration: 5 * 1000,
     })
   }
 }

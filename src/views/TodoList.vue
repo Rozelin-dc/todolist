@@ -78,17 +78,17 @@ interface Task {
 }
 
 @Component({
-  name: 'TodoList'
+  name: 'TodoList',
 })
 export default class extends Vue {
   inputError = {
-    name: [{ required: true, message: 'タスクの名前を入力してください。' }]
+    name: [{ required: true, message: 'タスクの名前を入力してください。' }],
   }
 
   newTask = {
     name: '',
     date: '',
-    status: ''
+    status: '',
   }
 
   tasks: Task[] = []
@@ -124,7 +124,7 @@ export default class extends Vue {
     }
     this.tasks.push({
       ...this.newTask,
-      number: this.newTaskNumber
+      number: this.newTaskNumber,
     })
     this.newTaskNumber = this.newTaskNumber + 1
     this.newTask.name = ''

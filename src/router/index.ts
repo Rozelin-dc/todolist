@@ -23,7 +23,7 @@ const routes: Array<any> = [
   },
   {
     path: '/counter',
-    name: 'Counetr',
+    name: 'Counter',
     component: () => import('@/views/Counter.vue'),
   },
   {
@@ -35,7 +35,7 @@ const routes: Array<any> = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 })
 
 export default router
