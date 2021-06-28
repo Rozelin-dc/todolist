@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-class-component'
+import { Vue, Component } from 'vue-property-decorator'
 
 interface Link {
   url: string

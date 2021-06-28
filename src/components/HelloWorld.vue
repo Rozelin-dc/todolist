@@ -103,7 +103,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-class-component'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
   name: 'HelloWorld',
