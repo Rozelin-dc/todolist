@@ -13,8 +13,8 @@ import { Vue, Component } from 'vue-class-component'
 @Component({
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
 export default class extends Vue {}
 </script>

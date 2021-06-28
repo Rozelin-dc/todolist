@@ -107,7 +107,7 @@ import { Component, Prop, Vue } from 'vue-class-component'
 
 @Component({
   name: 'HelloWorld',
-  components: {}
+  components: {},
 })
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string
