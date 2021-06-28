@@ -20,8 +20,8 @@ jobs:
         with:
           path: ./node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            node_modules-
+      - name: Setup
+        run: npm install -g npm@7
       - name: npm ci
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
