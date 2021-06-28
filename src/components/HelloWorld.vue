@@ -107,7 +107,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({
   name: 'HelloWorld',
-  components: {}
+  components: {},
 })
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string

@@ -8,7 +8,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/about',
@@ -17,27 +17,27 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: 'about' */ '../views/About.vue')
+      import(/* webpackChunkName: 'about' */ '../views/About.vue'),
   },
   {
     path: '/todo-list',
     name: 'TodoList',
-    component: () => import('@/views/TodoList.vue')
+    component: () => import('@/views/TodoList.vue'),
   },
   {
     path: '/counter',
     name: 'Counetr',
-    component: () => import('@/views/Counter.vue')
+    component: () => import('@/views/Counter.vue'),
   },
   {
     path: '/save-links',
     name: 'SaveLinks',
-    component: () => import('@/views/SaveLinks.vue')
-  }
+    component: () => import('@/views/SaveLinks.vue'),
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 
 export default router
