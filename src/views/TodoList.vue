@@ -14,7 +14,7 @@
       <el-table-column prop="date" label="期限" />
       <el-table-column prop="status" label="状態" />
       <el-table-column label="完了/削除">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             type="success"
             size="small"
@@ -69,7 +69,6 @@
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import { Form as ElForm } from 'element-ui'
 
 interface Task {
   number: number
@@ -80,7 +79,6 @@ interface Task {
 
 @Component({
   name: 'TodoList',
-  components: {},
 })
 export default class extends Vue {
   inputError = {
@@ -103,8 +101,7 @@ export default class extends Vue {
   get addOk() {
     if (this.newTask.name === '') return false
 
-    const $form = this.$refs[this.formName] as ElForm
-    $form.validate((isValid) => {
+    this.$refs[this.formName].validate((isValid) => {
       this.isValid = isValid
     })
     return this.isValid
@@ -176,7 +173,7 @@ export default class extends Vue {
     this.multipleSelection = val
   }
 
-  @Watch('tasks')
+  @Watch('tasks', { deep: true })
   refleshTable() {
     if (this.key === 'a') this.key = 'b'
     else this.key = 'a'

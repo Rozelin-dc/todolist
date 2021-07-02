@@ -54,7 +54,6 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Form as ElForm } from 'element-ui'
 
 interface Link {
   url: string
@@ -63,7 +62,6 @@ interface Link {
 
 @Component({
   name: 'SaveLinks',
-  components: {},
 })
 export default class extends Vue {
   newLink: Link = {
@@ -82,8 +80,7 @@ export default class extends Vue {
   get addOk() {
     if (this.newLink.url === '') return false
 
-    const $form = this.$refs[this.formName] as ElForm
-    $form.validate((isValid) => {
+    this.$refs[this.formName].validate((isValid) => {
       this.isValid = isValid
     })
     return this.isValid

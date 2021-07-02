@@ -1,17 +1,14 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import ElementPuls from 'element-plus'
+import 'element-plus/lib/theme-chalk/index.css'
 import VueClipboard from 'vue-clipboard2'
 
-Vue.use(VueClipboard)
+const app = createApp(App)
+app.use(VueClipboard)
 
-Vue.config.productionTip = false
+app.use(ElementPuls)
 
-Vue.use(ElementUI)
-
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount('#app')
+app.use(router)
+app.mount('#app')

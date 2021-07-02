@@ -24,7 +24,7 @@ jobs:
           path: ./node_modules
           key: node_modules-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Setup
+      - name: Setup npm
         run: npm install -g npm@7
 
       - name: Install Packages
