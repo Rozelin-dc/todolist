@@ -1,5 +1,7 @@
 # SimpleApp
 
+[![](https://github.com/Rozelin-dc/SimpleApp/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/Rozelin-dc/SimpleApp/actions/workflows/gh-pages.yml)
+
 ## Project setup
 ```
 npm install
